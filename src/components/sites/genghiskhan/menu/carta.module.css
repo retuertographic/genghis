@@ -1,0 +1,460 @@
+/*
+ * Styles for the "carta" menu widget, transcribed from the source's inline styles.
+ * The source sizes everything in rem against Porto's root font-size, which drops to 92.857%
+ * at <=575px; `--r` stands in for that rem so the widget scales the same way without
+ * touching the app's root font-size. Porto's body line-height (26px / 20px) is inherited too.
+ */
+
+.root {
+  --r: 16px;
+  --lh: 26px;
+  --orange: #f97316;
+  --line: #1f2937;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: calc(var(--r) * 0.875);
+  line-height: var(--lh);
+  color: #e5e7eb;
+  position: relative;
+  width: 100%;
+}
+
+@media (max-width: 575.98px) {
+  .root {
+    --r: 14.8576px;
+    --lh: 20px;
+  }
+}
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--r) calc(var(--r) * 1.25) calc(var(--r) * 3);
+}
+
+@media (max-width: 575.98px) {
+  .page {
+    padding-inline: calc(var(--r) * 1.25 + 8px);
+  }
+}
+
+/* ---- Hero ---- */
+
+.hero {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.85);
+  margin-bottom: var(--r);
+  background: radial-gradient(circle at top left, #1f2937, #020617);
+  padding: calc(var(--r) * 1.4) calc(var(--r) * 1.5);
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  opacity: 0.45;
+  z-index: 0;
+}
+
+.heroTitle {
+  font-family: var(--font-poppins);
+  font-size: calc(var(--r) * 2);
+  font-weight: 700;
+  line-height: 44px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f9fafb;
+  margin: 0 0 calc(var(--r) * 0.2);
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 575.98px) {
+  .heroTitle {
+    line-height: 1.139;
+  }
+}
+
+.heroSubtitle {
+  margin: 0;
+  font-size: calc(var(--r) * 0.95);
+  color: #d1d5db;
+  position: relative;
+  z-index: 2;
+}
+
+.igic {
+  display: inline-block;
+  margin-top: calc(var(--r) * 0.6);
+  padding: calc(var(--r) * 0.2) calc(var(--r) * 0.6);
+  border: 1px solid var(--orange);
+  border-radius: 999px;
+  color: var(--orange);
+  font-size: calc(var(--r) * 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  align-self: flex-start;
+  position: relative;
+  z-index: 2;
+}
+
+/* ---- Category nav ---- */
+
+.navWrapper {
+  z-index: 40;
+  margin-bottom: var(--r);
+}
+
+/* Porto clips .page-wrapper below 768px, which disables the sticky bar on phones. */
+@media (min-width: 768px) {
+  .navWrapper {
+    position: sticky;
+    top: 0;
+  }
+}
+
+.nav {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--r) * 0.4) calc(var(--r) * 0.9);
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.98));
+  backdrop-filter: blur(14px);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85);
+  flex-wrap: wrap;
+  gap: calc(var(--r) * 0.4);
+  text-align: center;
+}
+
+.navLabel {
+  font-size: calc(var(--r) * 0.75);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #fff;
+}
+
+.navLinks {
+  display: flex;
+  gap: calc(var(--r) * 0.35);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.navLink {
+  font-size: calc(var(--r) * 0.75);
+  padding: calc(var(--r) * 0.25) calc(var(--r) * 0.55);
+  border-radius: 999px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.navLinkActive {
+  background: rgba(249, 115, 22, 0.15);
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+/* ---- Language pills + close all ---- */
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: calc(var(--r) * 0.6);
+  margin-bottom: var(--r);
+}
+
+.langSwitch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--r) * 0.3);
+}
+
+.langBtn {
+  min-width: calc(var(--r) * 2.6);
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(15, 23, 42, 0.95);
+  color: #e5e7eb;
+  padding: calc(var(--r) * 0.4) calc(var(--r) * 0.65);
+  font-size: calc(var(--r) * 0.75);
+  font-weight: 600;
+  line-height: var(--lh);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.langBtnActive {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #020617;
+}
+
+/* The source's page-wide `* { color: #fff }` rule turns the label white inside the orange outline. */
+.closeAll {
+  border-radius: 999px;
+  border: 1px solid var(--orange);
+  background: rgba(15, 23, 42, 0.95);
+  color: #fff;
+  padding: calc(var(--r) * 0.45) calc(var(--r) * 0.9);
+  font-size: calc(var(--r) * 0.8);
+  line-height: var(--lh);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--r) * 0.3);
+}
+
+/* ---- Accordion ---- */
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--r) * 0.75);
+}
+
+.item {
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.99));
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+}
+
+.itemOpen {
+  border-color: rgba(249, 115, 22, 0.45);
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--r) * 0.8) var(--r);
+  cursor: pointer;
+  background: linear-gradient(to right, rgba(249, 115, 22, 0.12), transparent);
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  border: 0;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--r) * 0.75);
+  min-width: 0;
+}
+
+.placeholder {
+  background: repeating-linear-gradient(45deg, #111827 0 8px, #0b1220 8px 16px);
+}
+
+.placeholder > span {
+  color: #9ca3af;
+  font-size: calc(var(--r) * 0.7);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: calc(var(--r) * 0.4);
+}
+
+.thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.categoryTitle {
+  font-size: var(--r);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f9fafb;
+}
+
+.categorySubtitle {
+  font-size: calc(var(--r) * 0.8);
+  color: #9ca3af;
+}
+
+.icon {
+  margin-left: calc(var(--r) * 0.5);
+  font-size: calc(var(--r) * 1.1);
+  color: var(--orange);
+  transition: transform 0.2s ease;
+}
+
+.itemOpen .icon {
+  transform: rotate(90deg);
+}
+
+/*
+ * Porto's Bootstrap `.accordion-body { padding: 1rem 1.25rem }` also applies on the source; with
+ * border-box sizing a closed panel can't shrink below that padding, so every closed category shows
+ * a ~33px dark strip (with the top edge of the photo box peeking through). Reproduced 1:1.
+ */
+.body {
+  box-sizing: border-box;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.22s ease-out;
+  border-top: 1px solid var(--line);
+  background: #020617;
+  padding: var(--r) calc(var(--r) * 1.25);
+}
+
+.inner {
+  padding: calc(var(--r) * 0.8) var(--r) calc(var(--r) * 1.1);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: calc(var(--r) * 1.2);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: calc(var(--r) * 0.45);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: calc(var(--r) * 0.75);
+  border-bottom: 1px dashed #374151;
+  padding-bottom: calc(var(--r) * 0.35);
+}
+
+.name {
+  font-size: calc(var(--r) * 0.92);
+  color: #e5e7eb;
+}
+
+.badge {
+  display: inline-block;
+  margin-left: calc(var(--r) * 0.4);
+  padding: calc(var(--r) * 0.05) calc(var(--r) * 0.45);
+  border-radius: 999px;
+  background: var(--orange);
+  color: #020617;
+  font-size: calc(var(--r) * 0.65);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+}
+
+.desc {
+  font-size: calc(var(--r) * 0.75);
+  color: #9ca3af;
+  margin-top: calc(var(--r) * 0.15);
+}
+
+.price {
+  font-size: calc(var(--r) * 0.9);
+  font-weight: 600;
+  color: #fbbf24;
+  white-space: nowrap;
+}
+
+.sectionImage {
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: 120px;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.note {
+  font-size: calc(var(--r) * 0.8);
+  color: #9ca3af;
+  margin-top: calc(var(--r) * 0.5);
+}
+
+/* ---- Allergen statement ---- */
+
+.footerNotes {
+  margin-top: calc(var(--r) * 2);
+  padding: var(--r) calc(var(--r) * 1.2);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.7);
+  font-size: calc(var(--r) * 0.78);
+  color: #fff;
+  line-height: 1.5;
+}
+
+.footerNotes strong {
+  color: #f9fafb;
+  display: block;
+  margin-bottom: calc(var(--r) * 0.3);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: calc(var(--r) * 0.7);
+  font-weight: 700;
+}
+
+/* ---- Back to top ---- */
+
+.btnTop {
+  position: fixed;
+  right: calc(var(--r) * 1.5);
+  bottom: calc(var(--r) * 1.5);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--orange);
+  background: radial-gradient(circle at top, #f97316, #ea580c);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.85);
+  transition:
+    opacity 0.15s,
+    visibility 0.15s;
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.btnTopVisible {
+  opacity: 1;
+  visibility: visible;
+}

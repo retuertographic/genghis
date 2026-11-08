@@ -6,9 +6,16 @@ Source: https://genghiskhangrilltenerife.com/ (WordPress · Porto theme · Eleme
 
 | Source | Local | Owner files |
 | --- | --- | --- |
-| `/` | `/` | `src/app/page.tsx` → `src/components/sites/genghiskhan/home-page.tsx` |
+| `/` | `/` | `src/app/(site)/page.tsx` → `components/sites/genghiskhan/home-page.tsx` |
+| `/menu/` | `/menu/` | `src/app/(site)/menu/` → `components/sites/genghiskhan/menu/` (6-language carta widget) |
+| `/bookings/`, `/lamb-shoulder/`, `/about/` | same | `components/sites/genghiskhan/inner-pages.tsx` |
+| `/awards/`, `/contact/`, `/tc/` | same | `components/sites/genghiskhan/pages/` |
+| `/menu-2-2/` | `/menu-2-2/` (no header/footer, as on source) | `src/app/menu-2-2/` → `components/sites/genghiskhan/menu-2-2/` |
+| `/giftcard/`, `/waiter-waitress-job-in-tenerife-south-november/` | 404 (the source also returns 404) | `src/app/not-found.tsx` |
 
-All other pages (Menu, Bookings, Lamb Shoulder, About, Awards, Contact, Gift Card, T&C, Careers) were out of scope and keep pointing to the live site (`SOURCE` in `data.ts`).
+Shared shell (header, footer, booking modal) lives in `src/app/(site)/layout.tsx` → `site-shell.tsx`; shared sections in `shared.tsx` and `page-sections.tsx`. `trailingSlash: true` keeps source URLs.
+
+Live-site leftovers kept as-is: the Contact page is Porto demo placeholder content (address, phone, map in New York, beauty-salon images, lorem FAQ); the T&C gift-card form is named "Waiter/Waitress" on the source. Menu category photos were not in the mirror (the widget shows its own "Photo coming soon" placeholder); the T&C texture background could not be downloaded (captcha).
 
 ## How the evidence was collected
 
