@@ -62,7 +62,7 @@ export function Footer() {
             </div>
             <div className="mt-[12px]">
               <Label>OPENING TIMES</Label>
-              <div className="text-[14px] leading-[18px] tracking-[-0.35px] text-white">Mon - Sun / 13 - 23</div>
+              <div className="text-[14px] leading-[18px] tracking-[-0.35px] text-white">Mon - Sun / 13:30 - 23:00</div>
             </div>
             <div className="mt-[20px]">
               <Heading>SHARE THIS PAGE</Heading>

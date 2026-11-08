@@ -113,7 +113,7 @@ export function LocationInfo() {
           <div className="border border-white/60 px-[20px] py-[30px] font-poppins text-[14px] leading-[14px] text-white">
             <h4 className="font-montserrat text-[16px] font-black leading-[22.4px] tracking-[-0.8px]">Opening Times:</h4>
             <p className="mt-[24px]">Monday to Sunday</p>
-            <p className="mt-[32px]">13:00 - 23:00</p>
+            <p className="mt-[32px]">13:30 - 23:00</p>
             <h4 className="mt-[40px] font-montserrat text-[16px] font-black leading-[22.4px] tracking-[-0.8px]">Location</h4>
             <p className="mt-[24px] leading-[22px]">
               Centro Comercial San Sebastián, C. la Enramada, Local 21, 38679 La Caleta, Santa Cruz de Tenerife

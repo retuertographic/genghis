@@ -41,7 +41,7 @@ const FAQS: { q: string; a: ReactNode }[] = [
   },
   {
     q: "3 – What are your opening hours?",
-    a: "We are open Monday to Sunday, from 13:00 to 23:00.",
+    a: "We are open Monday to Sunday, from 13:30 to 23:00.",
   },
   {
     q: "4 – How does the tabletop grill work?",
@@ -75,7 +75,7 @@ function FindUs() {
             Centro Comercial San Sebastián, Calle la Enramada, Local 21
           </a>
           <span>38679 La Caleta, Santa Cruz de Tenerife</span>
-          <span>Monday to Sunday · 13:00 – 23:00</span>
+          <span>Monday to Sunday · 13:30 – 23:00</span>
         </InfoColumn>
         <InfoColumn title="Contact Us">
           <span>
