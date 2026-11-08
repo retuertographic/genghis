@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { FileText } from "lucide-react";
+import { BookingWidgetSection } from "@/components/sites/genghiskhan/page-sections";
 import { SiteShell } from "@/components/sites/genghiskhan/site-shell";
 
 export const metadata: Metadata = { title: "Page not found – Genghis Khan, Innovative Grill" };
 
-/** Porto theme 404 page, as served by the source for unknown URLs. */
+/** Porto theme 404 page, followed by the inline reservation widget so visitors can still book. */
 export default function NotFound() {
   return (
     <SiteShell>
@@ -19,6 +20,7 @@ export default function NotFound() {
           </p>
         </div>
       </section>
+      <BookingWidgetSection className="pb-[80px]" />
     </SiteShell>
   );
 }
