@@ -18,10 +18,8 @@ export const QUICK_LINKS = [
   { label: "Home", href: "/" },
   { label: "Bookings", href: "/bookings/" },
   { label: "Menu", href: "/menu/" },
-  { label: "Gift Card", href: "/giftcard/" },
   { label: "About", href: "/about/" },
   { label: "T&C", href: "/tc/" },
-  { label: "Careers", href: "/waiter-waitress-job-in-tenerife-south-november/" },
   { label: "Contact", href: "/contact/" },
 ];
 

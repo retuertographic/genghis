@@ -4,7 +4,7 @@ import { SiteShell } from "@/components/sites/genghiskhan/site-shell";
 
 export const metadata: Metadata = { title: "Page not found – Genghis Khan, Innovative Grill" };
 
-/** Porto theme 404, as served by the source for /giftcard/ and the careers post. */
+/** Porto theme 404 page, as served by the source for unknown URLs. */
 export default function NotFound() {
   return (
     <SiteShell>

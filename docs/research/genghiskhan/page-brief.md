@@ -11,7 +11,7 @@ Source: https://genghiskhangrilltenerife.com/ (WordPress · Porto theme · Eleme
 | `/bookings/`, `/lamb-shoulder/`, `/about/` | same | `components/sites/genghiskhan/inner-pages.tsx` |
 | `/awards/`, `/contact/`, `/tc/` | same | `components/sites/genghiskhan/pages/` |
 | `/menu-2-2/` | `/menu-2-2/` (no header/footer, as on source) | `src/app/menu-2-2/` → `components/sites/genghiskhan/menu-2-2/` |
-| `/giftcard/`, `/waiter-waitress-job-in-tenerife-south-november/` | 404 (the source also returns 404) | `src/app/not-found.tsx` |
+| unknown URLs | 404 page | `src/app/not-found.tsx` (Gift Card and Careers links removed from the footer: both 404 on the source) |
 
 Shared shell (header, footer, booking modal) lives in `src/app/(site)/layout.tsx` → `site-shell.tsx`; shared sections in `shared.tsx` and `page-sections.tsx`. `trailingSlash: true` keeps source URLs.
 
