@@ -15,7 +15,7 @@ Source: https://genghiskhangrilltenerife.com/ (WordPress · Porto theme · Eleme
 
 Shared shell (header, footer, booking modal) lives in `src/app/(site)/layout.tsx` → `site-shell.tsx`; shared sections in `shared.tsx` and `page-sections.tsx`. `trailingSlash: true` keeps source URLs.
 
-Live-site leftovers kept as-is: the Contact page is Porto demo placeholder content (address, phone, map in New York, beauty-salon images, lorem FAQ); the T&C gift-card form is named "Waiter/Waitress" on the source. Menu category photos were not in the mirror (the widget shows its own "Photo coming soon" placeholder); the T&C texture background could not be downloaded (captcha).
+Contact page: the live site still shows Porto demo placeholder content; the clone replaces it with the restaurant's real address, phones, email, WhatsApp, map, Instagram photos and an FAQ written from facts stated elsewhere on the site. The T&C gift-card form is named "Waiter/Waitress" on the source. Menu category photos were not in the mirror (the widget shows its own "Photo coming soon" placeholder); the T&C texture background could not be downloaded (captcha).
 
 ## How the evidence was collected
 

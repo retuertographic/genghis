@@ -4,34 +4,53 @@ import Image from "next/image";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, Plus, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ASSETS } from "../data";
+import { BookNowButton } from "../booking-modal";
+import { ASSETS, INSTAGRAM_POSTS, SOCIAL } from "../data";
 import { InstagramIcon } from "../brand-icons";
 import { playfair } from "./fonts";
 
-/*
- * NOTE: the live Contact page still carries the Porto "Beauty" demo content (address, phone, map,
- * gallery, FAQ, Instagram handle, Book Now link). It is cloned 1:1 here on purpose; replace later.
- */
+const ADDRESS = "Centro Comercial San Sebastián, Calle la Enramada, Local 21, 38679 La Caleta, Santa Cruz de Tenerife";
+const MAIL = "bookings@genghiskhangrilltenerife.com";
+const MAP_EMBED_URL = `https://maps.google.com/maps?q=${encodeURIComponent(`Genghis Khan Grill, ${ADDRESS}`)}&z=16&output=embed`;
 
-/** Porto Google Map widget: demo coordinates 40.75198, -73.96978 (New York), zoom 14. */
-const MAP_EMBED_URL = "https://maps.google.com/maps?q=40.75198,-73.96978&z=14&output=embed";
-const BOOK_NOW_URL = "https://www.portotheme.com/wordpress/porto/elementor/beauty/book-now/";
-
-/** Source order of the beauty-gallery images. */
-const GALLERY = [1, 6, 5, 4, 3, 2].map((n) => ({
-  src: `${ASSETS}/images/contact/gallery-${n}.webp`,
-  alt: `beauty-gallery-${n}`,
+/** Restaurant photos from the Instagram feed (square). */
+const GALLERY = INSTAGRAM_POSTS.slice(0, 6).map((post) => ({
+  src: `${ASSETS}/instagram/${post.id}.jpg`,
+  alt: post.caption,
 }));
 
-const LOREM =
-  "Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien.";
-
-const FAQS = [
-  "1 – Tristique Sit Amet Condim Vel?",
-  "2 – Cras A Elit Sit Amet Leo Accumsan?",
-  "3 – Hel Officitur Felis Ultricis Nan?",
-  "4 – Wuspaisse Hendreirit Vehicula Leo?",
-  "5 – Lintegers Aliquet Ullamcorper Dollor, Quis Sollic Tudin?",
+/** Answers use only facts stated elsewhere on the site (bookings, hours, grill, allergens). */
+const FAQS: { q: string; a: ReactNode }[] = [
+  {
+    q: "1 – How can I book a table?",
+    a: (
+      <>
+        Use the Book Now button to reserve online, call us at <a href="tel:0034922692798">922 69 27 98</a> or{" "}
+        <a href="tel:0034688151137">688 15 11 37</a>, or write to <a href={`mailto:${MAIL}`}>{MAIL}</a>.
+      </>
+    ),
+  },
+  {
+    q: "2 – Can I book for a large group or an event?",
+    a: (
+      <>
+        Yes. For larger groups please get in touch with us directly at <a href={`mailto:${MAIL}`}>{MAIL}</a>. Our
+        reservations team will be delighted to help you with your request.
+      </>
+    ),
+  },
+  {
+    q: "3 – What are your opening hours?",
+    a: "We are open Monday to Sunday, from 13:00 to 23:00.",
+  },
+  {
+    q: "4 – How does the tabletop grill work?",
+    a: "Our tables, inspired by the time of the great conqueror Genghis Khan, have a charcoal grill built in, so you can cook a wide variety of fresh meats such as beef, lamb, pork, chicken, and seafood to your preferred doneness, right at your table.",
+  },
+  {
+    q: "5 – Do you have allergen information?",
+    a: "Yes. In compliance with Regulation (EU) No. 1169/2011 on the provision of food information to consumers, we have information regarding the presence of allergens in our products available for consultation. Please ask our staff.",
+  },
 ];
 
 function InfoColumn({ title, children }: { title: string; children: ReactNode }) {
@@ -52,15 +71,27 @@ function FindUs() {
     <section className="my-[80px]">
       <div className="gk-container grid grid-cols-1 md:grid-cols-2 max-md:px-[7px]">
         <InfoColumn title="Find Us">
-          <span>999 Porto Theme Drive</span>
-          <span>West Hollywood, CA 90069</span>
+          <a href={SOCIAL.maps} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#222529]">
+            Centro Comercial San Sebastián, Calle la Enramada, Local 21
+          </a>
+          <span>38679 La Caleta, Santa Cruz de Tenerife</span>
+          <span>Monday to Sunday · 13:00 – 23:00</span>
         </InfoColumn>
         <InfoColumn title="Contact Us">
-          <a href="tel:123-456-7890" className="transition-colors hover:text-[#222529]">
-            123-456-7890
+          <span>
+            <a href="tel:0034922692798" className="transition-colors hover:text-[#222529]">
+              0034 922 692 798
+            </a>
+            {" · "}
+            <a href="tel:0034688151137" className="transition-colors hover:text-[#222529]">
+              0034 688 151 137
+            </a>
+          </span>
+          <a href={`mailto:${MAIL}`} className="transition-colors hover:text-[#222529] max-sm:text-[14.5px]">
+            {MAIL}
           </a>
-          <a href="mailto:mail@domain.com" className="transition-colors hover:text-[#222529]">
-            mail@domain.com
+          <a href={SOCIAL.whatsapp} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#222529]">
+            WhatsApp: 0034 694 462 568
           </a>
         </InfoColumn>
       </div>
@@ -72,7 +103,7 @@ function MapSection() {
   return (
     <section className="h-[580px] bg-[#e5e3df]">
       <iframe
-        title="Map"
+        title="Genghis Khan Grill location map"
         src={MAP_EMBED_URL}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
@@ -117,7 +148,7 @@ function Lightbox({ index, onClose, onStep }: { index: number; onClose: () => vo
         <ChevronLeft className="size-10" strokeWidth={1.5} />
       </button>
       <figure onClick={(e) => e.stopPropagation()} className="text-center">
-        <Image src={img.src} alt={img.alt} width={320} height={318} className="h-auto max-h-[80vh] w-[min(320px,80vw)]" />
+        <Image src={img.src} alt={img.alt} width={640} height={640} className="h-auto max-h-[80vh] w-[min(640px,80vw)]" />
         <figcaption className="mt-2 font-poppins text-[12px] text-white/70">
           {index + 1} of {GALLERY.length}
         </figcaption>
@@ -153,14 +184,14 @@ function GalleryStrip() {
             key={img.src}
             type="button"
             onClick={() => setIndex(i)}
-            aria-label={`Open ${img.alt}`}
+            aria-label={`Open photo ${i + 1}`}
             className="group relative block overflow-hidden"
           >
             <Image
               src={img.src}
               alt={img.alt}
-              width={320}
-              height={318}
+              width={640}
+              height={640}
               sizes="(min-width: 1024px) 17vw, (min-width: 640px) 33vw, 50vw"
               className="block h-auto w-full"
             />
@@ -172,7 +203,11 @@ function GalleryStrip() {
       </div>
 
       <div className="absolute left-1/2 top-1/2 w-[480px] max-w-full -translate-x-1/2 -translate-y-1/2 max-md:w-full">
-        <div className="bg-[#222529] px-0 pb-[28px] pt-[49px] text-center transition-transform duration-300 hover:scale-110">
+        <a
+          href={SOCIAL.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block bg-[#222529] px-0 pb-[28px] pt-[49px] text-center transition-transform duration-300 hover:scale-110">
           <InstagramIcon aria-hidden className="mx-auto mb-[18px] size-[58px] text-white" />
           <h2
             className={cn(
@@ -183,9 +218,9 @@ function GalleryStrip() {
             Follow On Instagram
           </h2>
           <p className="font-poppins text-[14px] leading-[26px] text-[#969696] max-md:text-[13px] max-md:leading-[20px]">
-            @portobeautysalon
+            @genghiskhan.grill
           </p>
-        </div>
+        </a>
       </div>
 
       {index !== null && <Lightbox index={index} onClose={close} onStep={step} />}
@@ -207,7 +242,7 @@ function Faqs() {
     <section className="mt-[60px]">
       <div className="gk-container">
         <div className="flex flex-col gap-[17px]">
-          {FAQS.map((q, i) => {
+          {FAQS.map(({ q, a }, i) => {
             const isOpen = open.has(i);
             const id = `faq-${i}`;
             return (
@@ -235,8 +270,8 @@ function Faqs() {
                   )}
                 >
                   <div className="overflow-hidden">
-                    <p className="px-[32px] pb-[32px] font-poppins text-[14px] leading-[26px] text-[#777] max-md:text-[13px] max-md:leading-[20px]">
-                      {LOREM}
+                    <p className="px-[32px] pb-[32px] font-poppins text-[14px] leading-[26px] text-[#777] max-md:text-[13px] max-md:leading-[20px] [&_a]:text-[#222529] [&_a:hover]:text-[#cfa670]">
+                      {a}
                     </p>
                   </div>
                 </div>
@@ -245,13 +280,7 @@ function Faqs() {
           })}
         </div>
         <div className="mb-[60px] mt-[31px] text-center">
-          <a
-            href={BOOK_NOW_URL}
-            aria-label="button"
-            className="inline-block bg-[#222529] px-[38.4px] py-[20px] font-poppins text-[12.8px] leading-[19px] tracking-[2.5px] text-white transition-transform duration-300 hover:scale-110 max-md:text-[11.9px]"
-          >
-            BOOK NOW
-          </a>
+          <BookNowButton className="rounded-none border-0 bg-[#222529] px-[38.4px] py-[20px] text-[12.8px] uppercase leading-[19px] tracking-[2.5px] transition-transform duration-300 hover:scale-110 hover:bg-[#222529] max-md:text-[11.9px]" />
         </div>
       </div>
     </section>
