@@ -2,16 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Clock, Info, Menu, Phone, Send, X } from "lucide-react";
-import { ASSETS, NAV_LINKS, SOCIAL, SOURCE } from "./data";
+import { ASSETS, NAV_LINKS, SOCIAL } from "./data";
 import { FacebookIcon, InstagramIcon, MapMarkedIcon } from "./brand-icons";
 
 const TOP_ITEMS = [
   { icon: Info, label: "Genghis Khan, Innovative Grill", href: undefined },
   { icon: Clock, label: "Mon-Sun / 13:30 - 23:00", href: undefined },
   { icon: Phone, label: "0034 922 692 798", href: "tel:0034922692798" },
-  { icon: Send, label: "Contact", href: `${SOURCE}/contact/` },
+  { icon: Send, label: "Contact", href: "/contact/" },
 ];
 
 function Socials({ className = "" }: { className?: string }) {
@@ -32,6 +33,11 @@ function Socials({ className = "" }: { className?: string }) {
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href.replace(/\/$/, "")));
+  // Close the mobile menu after navigating.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => setOpen(false), [pathname]);
 
   return (
     <header className="relative z-50 font-poppins">
@@ -43,9 +49,9 @@ export function Header() {
               <li key={label} className="flex items-center gap-[14px] text-[12px] leading-[26px] text-white">
                 <Icon className="size-[14px]" strokeWidth={2.4} />
                 {href ? (
-                  <a href={href} className="hover:text-[#cfa670]">
+                  <Link href={href} className="hover:text-[#cfa670]">
                     {label}
-                  </a>
+                  </Link>
                 ) : (
                   <span>{label}</span>
                 )}
@@ -77,19 +83,19 @@ export function Header() {
           </Link>
           <nav className="ml-[47px] hidden lg:block" aria-label="Main">
             <ul className="flex items-center">
-              {NAV_LINKS.map((link, i) => (
+              {NAV_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a
+                  <Link
                     href={link.href}
                     className={`group relative block px-[19.5px] py-[10px] text-[13px] uppercase leading-[20px] tracking-[-0.3px] text-white`}
                   >
                     {link.label}
                     <span
                       className={`absolute bottom-[3px] left-[19.5px] right-[19.5px] h-[2px] origin-left bg-[#cfa670] transition-transform duration-300 ${
-                        i === 0 ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                        isActive(link.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                       }`}
                     />
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -114,9 +120,9 @@ export function Header() {
         <ul className="overflow-hidden">
           {NAV_LINKS.map((link) => (
             <li key={link.label} className="border-t border-white/10">
-              <a href={link.href} className="block px-5 py-3 text-[13px] uppercase text-white hover:text-[#cfa670]">
+              <Link href={link.href} className="block px-5 py-3 text-[13px] uppercase text-white hover:text-[#cfa670]">
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

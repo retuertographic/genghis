@@ -6,26 +6,27 @@ export const BOOKING_WIDGET_URL =
 
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Menu", href: `${SOURCE}/menu/` },
-  { label: "Bookings", href: `${SOURCE}/bookings/` },
-  { label: "Lamb Shoulder", href: `${SOURCE}/lamb-shoulder/` },
-  { label: "About", href: `${SOURCE}/about/` },
-  { label: "Awards", href: `${SOURCE}/awards/` },
-  { label: "Contact", href: `${SOURCE}/contact/` },
+  { label: "Menu", href: "/menu/" },
+  { label: "Bookings", href: "/bookings/" },
+  { label: "Lamb Shoulder", href: "/lamb-shoulder/" },
+  { label: "About", href: "/about/" },
+  { label: "Awards", href: "/awards/" },
+  { label: "Contact", href: "/contact/" },
 ];
 
 export const QUICK_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Bookings", href: `${SOURCE}/bookings/` },
-  { label: "Menu", href: `${SOURCE}/menu/` },
-  { label: "Gift Card", href: `${SOURCE}/giftcard/` },
-  { label: "About", href: `${SOURCE}/about/` },
-  { label: "T&C", href: `${SOURCE}/tc/` },
-  { label: "Careers", href: `${SOURCE}/waiter-waitress-job-in-tenerife-south-november/` },
-  { label: "Contact", href: `${SOURCE}/contact/` },
+  { label: "Bookings", href: "/bookings/" },
+  { label: "Menu", href: "/menu/" },
+  { label: "Gift Card", href: "/giftcard/" },
+  { label: "About", href: "/about/" },
+  { label: "T&C", href: "/tc/" },
+  { label: "Careers", href: "/waiter-waitress-job-in-tenerife-south-november/" },
+  { label: "Contact", href: "/contact/" },
 ];
 
 export const SOCIAL = {
+  googleReviews: "https://maps.app.goo.gl/RC16CyGnFtKHBpEMA",
   instagram: "https://www.instagram.com/genghiskhan.grill/",
   facebook: "https://www.facebook.com/genghiskhangrill",
   maps: "https://maps.app.goo.gl/RC16CyGnFtKHBpEMA",

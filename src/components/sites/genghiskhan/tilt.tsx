@@ -2,7 +2,7 @@
  * Elementor "tilt" shape divider (70px tall, white). The source draws every divider with the
  * edge sloping up to the right: top dividers are thick on the left, bottom ones thick on the right.
  */
-export function Tilt({ position }: { position: "top" | "bottom" }) {
+export function Tilt({ position, fill = "#fff" }: { position: "top" | "bottom"; fill?: string }) {
   return (
     <svg
       aria-hidden
@@ -13,7 +13,7 @@ export function Tilt({ position }: { position: "top" | "bottom" }) {
       }`}
     >
       <path
-        fill="#fff"
+        fill={fill}
         d={position === "top" ? "M0 0H1000V6L0 100Z" : "M0 100H1000V0L0 94Z"}
       />
     </svg>

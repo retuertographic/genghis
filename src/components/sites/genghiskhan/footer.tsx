@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { ComponentType, SVGProps } from "react";
 import { ASSETS, QUICK_LINKS, SOURCE } from "./data";
 import {
@@ -88,9 +89,9 @@ export function Footer() {
             <ul className="mt-[14px] text-[13px] leading-[26px] max-md:leading-[20px]">
               {QUICK_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-white transition-colors hover:text-[#cfa670]">
+                  <Link href={link.href} className="text-white transition-colors hover:text-[#cfa670]">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
