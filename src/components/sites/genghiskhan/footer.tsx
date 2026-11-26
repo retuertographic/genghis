@@ -117,7 +117,7 @@ export function Footer() {
 
       <div className="border-t border-white/10 bg-black">
         <div className="gk-container py-[19px] pb-[61px] text-[12px] font-medium leading-[22px] text-[#999] max-md:text-center">
-          Genghis Khan, Innovative Grill. © {new Date().getFullYear()}. All Rights Reserved.{" "}
+          Genghis Khan, Innovative Grill. © {new Date().getFullYear()}. Todos los derechos reservados.{" "}
           <a href="https://retuertographicdesign.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white">
             Desarrollado por Retuerto Graphic Design. Ricardo Retuerto Barrera | Spain-Germany | 0034 922 971 723 · 0049 30 31878629
           </a>
