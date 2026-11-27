@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ASSETS } from "../data";
 import { PageBanner } from "../page-sections";
@@ -42,9 +43,9 @@ function Term({ text }: { text: string }) {
       <>
         For full details and restrictions on our offers, please refer to the specific conditions of each coupon and visit
         our website at{" "}
-        <a href="/tc/" className="hover:underline">
+        <Link href="/tc/" className="hover:underline">
           www.genghiskhangrilltenerife.com/tc
-        </a>
+        </Link>
         .
       </>
     );

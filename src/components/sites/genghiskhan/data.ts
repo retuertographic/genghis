@@ -1,5 +1,7 @@
 export const SOURCE = "https://genghiskhangrilltenerife.com";
-export const ASSETS = "/sites/genghiskhan";
+/** Set when the site is served from a sub-path (GitHub Pages project site). */
+export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+export const ASSETS = `${BASE_PATH}/sites/genghiskhan`;
 
 export const BOOKING_WIDGET_URL =
   "https://reservation.dish.co/widget/hydra-fa44740e-87ce-4424-9090-8615f9788f9c";

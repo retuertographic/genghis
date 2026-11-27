@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -181,12 +182,12 @@ function LambShoulder() {
           </h2>
         </Reveal>
         <Reveal animation="slideInLeft" className="mt-[20px]">
-          <a
+          <Link
             href="/lamb-shoulder/"
             className="inline-block rounded-[10px] border-[3px] border-[#cfa670] px-[30px] py-[15px] font-cinzel text-[14px] font-bold uppercase leading-[26px] text-[#cfa670] transition-colors hover:bg-black/[0.59] max-md:leading-[20px]"
           >
             Discover
-          </a>
+          </Link>
         </Reveal>
       </div>
       <Tilt position="bottom" />

@@ -88,7 +88,9 @@ function FireAndFlavour() {
 
 export function MenuPage() {
   return (
-    <main className="relative min-h-screen bg-black bg-[url(/sites/genghiskhan/images/menu-2-2-bg.jpg)] bg-repeat px-0 pt-20 pb-[300px] font-poppins text-white max-md:py-[26px]">
+    <main
+      style={{ backgroundImage: `url(${ASSETS}/images/menu-2-2-bg.jpg)` }}
+      className="relative min-h-screen bg-black bg-repeat px-0 pt-20 pb-[300px] font-poppins text-white max-md:py-[26px]">
       <div aria-hidden className="absolute inset-0 bg-black/60 opacity-84" />
       <div
         id="principales"
