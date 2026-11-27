@@ -21,7 +21,7 @@ export type MenuDish = {
 
 export type MenuCategory = {
   id: CategoryId;
-  /** Source photo path on the live site (not mirrored, so the widget shows its "photo coming soon" placeholder). */
+  /** Original photo on the old site; the same Magnific stock photo is served as public/sites/genghiskhan/menu/<id>-{400,1200}.webp. */
   sourcePhoto?: string;
   dishes: MenuDish[];
 };
@@ -32,9 +32,6 @@ export type MenuStrings = {
   igic: string;
   menu: string;
   closeAll: string;
-  language: string;
-  photo: string;
-  photoSoon: string;
   allergenTitle: string;
   allergenText: string;
   cats: Record<CategoryId, string>;
@@ -213,9 +210,6 @@ export const MENU_I18N: Record<MenuLang, MenuStrings> = {
     igic: "IGIC not included",
     menu: "Menu",
     closeAll: "Close all",
-    language: "Language",
-    photo: "Photo",
-    photoSoon: "Photo coming soon",
     allergenTitle: "Allergen statement",
     allergenText: "In compliance with Regulation (EU) No. 1169/2011 on the provision of food information to consumers, this establishment has information regarding the presence of allergens in our products available for consultation. Please contact our staff if you require further information.",
     cats: {
@@ -345,9 +339,6 @@ export const MENU_I18N: Record<MenuLang, MenuStrings> = {
     igic: "IGIC no incluido",
     menu: "Menú",
     closeAll: "Cerrar todo",
-    language: "Idioma",
-    photo: "Foto",
-    photoSoon: "Foto próximamente",
     allergenTitle: "Declaración de alérgenos",
     allergenText: "En cumplimiento del Reglamento (UE) Nº1169/2011 sobre la información alimentaria facilitada al consumidor, este establecimiento tiene disponible para su consulta la información relativa a la presencia de alérgenos de nuestros productos. Diríjase a nuestro personal si desea más información al respecto.",
     cats: {
@@ -473,13 +464,10 @@ export const MENU_I18N: Record<MenuLang, MenuStrings> = {
   },
   de: {
     title: "Speisekarte | Genghis Khan Grill",
-    subtitle: "Grill an deinem Tisch, mit Blick auf den Atlantik",
+    subtitle: "Grill an Ihrem Tisch, mit Blick auf den Atlantik",
     igic: "IGIC nicht inbegriffen",
     menu: "Speisekarte",
     closeAll: "Alle schließen",
-    language: "Sprache",
-    photo: "Foto",
-    photoSoon: "Foto folgt in Kürze",
     allergenTitle: "Allergenkennzeichnung",
     allergenText: "In Übereinstimmung mit der Verordnung (EU) Nr. 1169/2011 über die Bereitstellung von Lebensmittelinformationen für Verbraucher stellt dieses Lokal die Informationen zur Präsenz von Allergenen in unseren Produkten zur Einsicht bereit. Wenden Sie sich an unser Personal, wenn Sie weitere Auskünfte wünschen.",
     cats: {
@@ -507,7 +495,7 @@ export const MENU_I18N: Record<MenuLang, MenuStrings> = {
       chuleton: "Empfehlung für 2 Personen · Beilage nach Wahl inklusive",
     },
     notes: {
-      "fuego-sabor": "Du kannst das Essen nach deinem Geschmack zubereiten; wenn du es lieber nicht selbst tun möchtest, gib dem Personal Bescheid und das Küchenteam macht es für dich.",
+      "fuego-sabor": "Sie können das Essen nach Ihrem Geschmack zubereiten; wenn Sie es lieber nicht selbst tun möchten, geben Sie dem Personal Bescheid und das Küchenteam übernimmt es für Sie.",
       chuleton: "Preise pro kg, wählen Sie das Gewicht ab 1 kg.",
     },
     alts: {
@@ -609,9 +597,6 @@ export const MENU_I18N: Record<MenuLang, MenuStrings> = {
     igic: "IGIC non inclus",
     menu: "Carte",
     closeAll: "Tout fermer",
-    language: "Langue",
-    photo: "Photo",
-    photoSoon: "Photo bientôt disponible",
     allergenTitle: "Déclaration des allergènes",
     allergenText: "Conformément au Règlement (UE) n°1169/2011 concernant l'information alimentaire fournie au consommateur, cet établissement met à disposition pour consultation les informations relatives à la présence d'allergènes dans nos produits. Veuillez vous adresser à notre personnel pour toute information complémentaire.",
     cats: {
@@ -741,9 +726,6 @@ export const MENU_I18N: Record<MenuLang, MenuStrings> = {
     igic: "IGIC non incluso",
     menu: "Menù",
     closeAll: "Chiudi tutto",
-    language: "Lingua",
-    photo: "Foto",
-    photoSoon: "Foto in arrivo",
     allergenTitle: "Dichiarazione degli allergeni",
     allergenText: "In ottemperanza al Regolamento (UE) n. 1169/2011 relativo alle informazioni alimentari fornite al consumatore, questo esercizio mette a disposizione per la consultazione le informazioni riguardanti la presenza di allergeni nei nostri prodotti. Rivolgetevi al nostro personale per ulteriori chiarimenti.",
     cats: {
@@ -873,9 +855,6 @@ export const MENU_I18N: Record<MenuLang, MenuStrings> = {
     igic: "Exclusief IGIC",
     menu: "Menu",
     closeAll: "Alles sluiten",
-    language: "Taal",
-    photo: "Foto",
-    photoSoon: "Foto volgt binnenkort",
     allergenTitle: "Allergenenverklaring",
     allergenText: "In overeenstemming met Verordening (EU) nr. 1169/2011 betreffende voedselinformatie aan consumenten, heeft dit etablissement informatie over de aanwezigheid van allergenen in onze producten beschikbaar voor inzage. Neem contact op met ons personeel voor meer informatie.",
     cats: {

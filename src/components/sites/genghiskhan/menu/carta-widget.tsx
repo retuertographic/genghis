@@ -8,17 +8,14 @@ import { ASSETS } from "../data";
 import styles from "./carta.module.css";
 import {
   CATEGORY_IDS,
-  LANG_NAMES,
   MENU_CATEGORIES,
   MENU_I18N,
-  MENU_LANGS,
   type CategoryId,
   type MenuCategory,
   type MenuLang,
   type MenuStrings,
 } from "./menu-data";
 
-const LANG_KEY = "gk-carta-lang";
 const ES = MENU_I18N.es;
 
 /** Source behaviour: a missing translation falls back to the Spanish text. */
@@ -35,29 +32,12 @@ function strings(lang: MenuLang): MenuStrings {
   };
 }
 
-function toLang(code: string | null | undefined): MenuLang | null {
-  const short = String(code ?? "").slice(0, 2).toLowerCase();
-  return (MENU_LANGS as readonly string[]).includes(short) ? (short as MenuLang) : null;
-}
-
-/** Initial language: ?lang= in the URL, then the last choice, otherwise English. */
-function initialLang(): MenuLang {
-  const fromUrl = toLang(new URLSearchParams(window.location.search).get("lang"));
-  if (fromUrl) return fromUrl;
-  try {
-    const saved = toLang(window.localStorage.getItem(LANG_KEY));
-    if (saved) return saved;
-  } catch {
-    /* private mode */
-  }
-  return "en";
-}
-
-function Placeholder({ className, label }: { className: string; label: string }) {
+/** Category photo (Magnific stock bank, see public/sites/genghiskhan/menu/CREDITS.md). */
+function Photo({ id, size, alt, className, sizes }: { id: CategoryId; size: 400 | 1200; alt: string; className: string; sizes: string }) {
   return (
-    <div className={cn(className, styles.placeholder)}>
-      <span>{label}</span>
-    </div>
+    <span className={cn(className, styles.photo)}>
+      <Image src={`${ASSETS}/menu/${id}-${size}.webp`} alt={alt} width={size} height={Math.round((size * 2) / 3)} sizes={sizes} />
+    </span>
   );
 }
 
@@ -121,7 +101,7 @@ function AccordionItem({
         onClick={() => onToggle(id)}
       >
         <span className={styles.headerLeft}>
-          <Placeholder className={styles.thumb} label={t.photo} />
+          <Photo id={id} size={400} alt="" className={styles.thumb} sizes="52px" />
           <span className="block">
             <span className={cn("block", styles.categoryTitle)}>{t.cats[id]}</span>
             {subtitle && <span className={cn("block", styles.categorySubtitle)}>{subtitle}</span>}
@@ -168,7 +148,7 @@ function AccordionItem({
               })}
             </ul>
             <div>
-              <Placeholder className={styles.sectionImage} label={t.photoSoon} />
+              <Photo id={id} size={1200} alt={t.alts[id] ?? t.cats[id]} className={styles.sectionImage} sizes="(min-width: 900px) 400px, 100vw" />
               {note && <p className={styles.note}>{note}</p>}
             </div>
           </div>
@@ -178,9 +158,8 @@ function AccordionItem({
   );
 }
 
-/** The source's custom "carta" widget: hero, category nav, language pills, accordion, allergen note. */
-export function CartaWidget() {
-  const [lang, setLang] = useState<MenuLang>("en");
+/** The source's custom "carta" widget: hero, category nav, accordion, allergen note. Language = the page language. */
+export function CartaWidget({ lang }: { lang: MenuLang }) {
   const [openIds, setOpenIds] = useState<ReadonlySet<CategoryId>>(() => new Set());
   const [activeId, setActiveId] = useState<CategoryId | null>(null);
   const [showTop, setShowTop] = useState(false);
@@ -191,28 +170,6 @@ export function CartaWidget() {
   const navScrollTimer = useRef<number | undefined>(undefined);
 
   const t = strings(lang);
-
-  useEffect(() => {
-    const saved = initialLang();
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- URL/localStorage are only readable after hydration
-    if (saved !== "en") setLang(saved);
-  }, []);
-
-  const chooseLang = (code: MenuLang) => {
-    setLang(code);
-    try {
-      window.localStorage.setItem(LANG_KEY, code);
-    } catch {
-      /* private mode */
-    }
-    try {
-      const url = new URL(window.location.href);
-      url.searchParams.set("lang", code);
-      window.history.replaceState(window.history.state, "", url);
-    } catch {
-      /* no history */
-    }
-  };
 
   const toggle = useCallback((id: CategoryId) => {
     setOpenIds((prev) => {
@@ -336,21 +293,6 @@ export function CartaWidget() {
         </div>
 
         <section className={styles.controls}>
-          <div className={styles.langSwitch} role="group" aria-label={t.language}>
-            {MENU_LANGS.map((code) => (
-              <button
-                key={code}
-                type="button"
-                lang={code}
-                title={LANG_NAMES[code]}
-                aria-pressed={lang === code}
-                className={cn(styles.langBtn, lang === code && styles.langBtnActive)}
-                onClick={() => chooseLang(code)}
-              >
-                {code.toUpperCase()}
-              </button>
-            ))}
-          </div>
           <button type="button" className={styles.closeAll} onClick={() => setOpenIds(new Set())}>
             <span aria-hidden>✕</span> <span>{t.closeAll}</span>
           </button>

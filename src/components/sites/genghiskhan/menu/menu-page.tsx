@@ -1,10 +1,11 @@
 import { ASSETS } from "../data";
+import type { Lang } from "../i18n";
 import { BookingWidgetSection } from "../page-sections";
 import { BgSection } from "../shared";
 import { CartaWidget } from "./carta-widget";
 
 /** /menu/: the interactive carta over the restaurant photo, then the dish.co booking widget. */
-export function GenghisKhanMenu() {
+export function GenghisKhanMenu({ lang }: { lang: Lang }) {
   return (
     <>
       <BgSection
@@ -14,7 +15,7 @@ export function GenghisKhanMenu() {
         className="flex min-h-[40vh] items-center overflow-clip bg-black"
       >
         <div className="relative z-[2] w-full">
-          <CartaWidget />
+          <CartaWidget lang={lang} />
         </div>
         {/* Same tilt as the shared divider, but this section keeps 70px on phones too. */}
         <svg
