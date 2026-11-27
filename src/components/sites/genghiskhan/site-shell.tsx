@@ -7,7 +7,7 @@ import { Header } from "./header";
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <BookingProvider>
-      <div className="genghis flex min-h-screen flex-col bg-white font-poppins text-[14px] leading-[26px] text-[#777]">
+      <div className="genghis flex min-h-screen flex-col overflow-x-clip bg-white font-poppins text-[14px] leading-[26px] text-[#777]">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

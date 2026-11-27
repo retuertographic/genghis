@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { ASSETS } from "../data";
 import styles from "./carta.module.css";
 import {
+  CATEGORY_IDS,
   LANG_NAMES,
   MENU_CATEGORIES,
   MENU_I18N,
@@ -246,6 +247,24 @@ export function CartaWidget() {
       navScrolling.current = false;
     }, 1500);
   };
+
+  // Deep links: /menu/#<category-id> opens that category and scrolls to it (used by the Lamb Shoulder page).
+  const jumpRef = useRef(jumpTo);
+  useEffect(() => {
+    jumpRef.current = jumpTo;
+  });
+  useEffect(() => {
+    const fromHash = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      if ((CATEGORY_IDS as readonly string[]).includes(id)) jumpRef.current(id as CategoryId);
+    };
+    const timer = window.setTimeout(fromHash, 150);
+    window.addEventListener("hashchange", fromHash);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("hashchange", fromHash);
+    };
+  }, []);
 
   // Back-to-top visibility and scroll-spy highlighting of the category nav.
   useEffect(() => {

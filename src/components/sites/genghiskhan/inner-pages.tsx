@@ -65,11 +65,12 @@ export function BookingsPage() {
 
 /* ---------- /lamb-shoulder/ ---------- */
 
+/** Each box opens the matching category of the /menu/ carta. */
 const MENU_LINKS = [
-  { label: "Hot appetisers", col: 0 },
-  { label: "Skewers", col: 0 },
-  { label: "Fire & Flavour", col: 1 },
-  { label: "Seafood specialties", col: 1 },
+  { label: "Hot appetisers", col: 0, category: "calientes" },
+  { label: "Skewers", col: 0, category: "brochetas" },
+  { label: "Fire & Flavour", col: 1, category: "fuego-sabor" },
+  { label: "Seafood specialties", col: 1, category: "mar" },
 ];
 
 export function LambShoulderPage() {
@@ -112,7 +113,7 @@ export function LambShoulderPage() {
               {MENU_LINKS.filter((l) => l.col === col).map((l) => (
                 <Reveal key={l.label}>
                   <Link
-                    href="/menu-2-2/"
+                    href={`/menu/#${l.category}`}
                     className="block border border-black/80 px-[25px] py-[30px] font-cinzel text-[32px] font-semibold leading-[32px] tracking-[-1.6px] text-black transition-colors hover:border-[#cfa670] hover:text-[#cfa670] max-md:text-[26px]"
                   >
                     {l.label}

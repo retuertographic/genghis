@@ -23,7 +23,6 @@
 
 ## Optional
 
-- [Alternative menu](https://genghiskhangrilltenerife.com/menu-2-2/): Single-page menu listing every dish with its number and price.
 - [Terms and Conditions](https://genghiskhangrilltenerife.com/tc/): Dining terms and gift card request form.
 - [Instagram](https://www.instagram.com/genghiskhan.grill/): Latest photos and reels.
 - [Google reviews](https://maps.app.goo.gl/RC16CyGnFtKHBpEMA): Guest reviews on the Google listing.
