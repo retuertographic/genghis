@@ -62,3 +62,13 @@ The site answers `403` to headless browsers, so the page HTML and its assets wer
 - Instagram feed and Google reviews are a static snapshot (no live API).
 - Gallery geometry could not be compared against a rendered live page (see above); layout follows the widget settings.
 - The booking iframe loads the real dish.co widget; it was stubbed during automated tests.
+
+## Languages and shared parts (partials)
+
+- Six languages: English at the root (`src/app/(en)/`), Spanish, German, French, Italian and Dutch under `/es/`, `/de/`, `/fr/`, `/it/`, `/nl/` (`src/app/[lang]/`). Each has its own `<html lang>`, translated `<title>`/description, canonical and `hreflang` links.
+- Route files only point to `components/sites/genghiskhan/routes.tsx`, which lists every page once (path + component) and builds its metadata.
+- All texts live in `components/sites/genghiskhan/i18n/dictionaries/<lang>.ts` (same shape as `en.ts`). Inline markup: `**bold**` and `[label](href)`; internal hrefs get the language prefix automatically. The menu dishes keep their own six-language data in `menu/menu-data.ts`.
+- The menu has no language selector of its own: it shows the page language. The header has the EN · ES · DE · FR · IT · NL switcher, which links to the same page in each language.
+- Shared once, used everywhere: header, footer, booking modal (`site-shell.tsx`); banner, leaves band, booking widget, location block (`page-sections.tsx`); award card, feature photos, gourmet banner, reviews, Instagram (`shared.tsx`); image viewer (`lightbox.tsx`).
+- `global-not-found.tsx`: a single 404 for every language; it reads the language from the URL in the browser.
+- Menu photos: the same Magnific/Freepik stock photos the old site used, in `public/sites/genghiskhan/menu/<category>-{400,1200}.webp` (credits in `CREDITS.md` there).

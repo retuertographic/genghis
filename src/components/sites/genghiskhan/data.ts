@@ -2,28 +2,31 @@ export const SOURCE = "https://genghiskhangrilltenerife.com";
 /** Set when the site is served from a sub-path (GitHub Pages project site). */
 export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 export const ASSETS = `${BASE_PATH}/sites/genghiskhan`;
+/** Public address of the site (no trailing slash). Set NEXT_PUBLIC_SITE_URL when a custom domain is used. */
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? `https://retuertographic.github.io${BASE_PATH}`).replace(/\/$/, "");
 
 export const BOOKING_WIDGET_URL =
   "https://reservation.dish.co/widget/hydra-fa44740e-87ce-4424-9090-8615f9788f9c";
 
+/** Navigation entries: `key` names the label in the dictionaries (common.nav). Paths are language-neutral. */
 export const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Menu", href: "/menu/" },
-  { label: "Bookings", href: "/bookings/" },
-  { label: "Lamb Shoulder", href: "/lamb-shoulder/" },
-  { label: "About", href: "/about/" },
-  { label: "Awards", href: "/awards/" },
-  { label: "Contact", href: "/contact/" },
-];
+  { key: "home", href: "/" },
+  { key: "menu", href: "/menu/" },
+  { key: "bookings", href: "/bookings/" },
+  { key: "lambShoulder", href: "/lamb-shoulder/" },
+  { key: "about", href: "/about/" },
+  { key: "awards", href: "/awards/" },
+  { key: "contact", href: "/contact/" },
+] as const;
 
 export const QUICK_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Bookings", href: "/bookings/" },
-  { label: "Menu", href: "/menu/" },
-  { label: "About", href: "/about/" },
-  { label: "T&C", href: "/tc/" },
-  { label: "Contact", href: "/contact/" },
-];
+  { key: "home", href: "/" },
+  { key: "bookings", href: "/bookings/" },
+  { key: "menu", href: "/menu/" },
+  { key: "about", href: "/about/" },
+  { key: "tc", href: "/tc/" },
+  { key: "contact", href: "/contact/" },
+] as const;
 
 export const SOCIAL = {
   googleReviews: "https://maps.app.goo.gl/RC16CyGnFtKHBpEMA",
@@ -56,43 +59,30 @@ export const EXPERIENCE_GALLERIES: { columns: 1 | 2; images: GalleryImage[] }[] 
   { columns: 1, images: [img("Untitled-3-3.jpg", 959, 539)] },
 ];
 
-export const FEATURES = [
-  {
-    image: `${ASSETS}/images/Untitled-5.jpg`,
-    text: "Experience the sensation of reaching a unique destination as you are warmly greeted into our grill restaurant.",
-  },
-  {
-    image: `${ASSETS}/images/Untitled-5-1.jpg`,
-    text: "Savor our luxurious range of top-tier meats, meticulously dry-aged by our Chef",
-  },
-  {
-    image: `${ASSETS}/images/Untitled-5-2.jpg`,
-    text: "Indulge in an unforgettable dining experience marked by superior quality and exceptional service that will linger in your memories long after your meal is over.",
-  },
+/** Image of each feature card; the caption is common.features[i] in the dictionaries. */
+export const FEATURE_IMAGES = [
+  `${ASSETS}/images/Untitled-5.jpg`,
+  `${ASSETS}/images/Untitled-5-1.jpg`,
+  `${ASSETS}/images/Untitled-5-2.jpg`,
 ];
 
-export const STEPS = [
-  "Choose the number of guests that will take part of the experience.",
-  "Book your table and get ready for an exceptional culinary delight.",
-  "Allow our experienced team to lead you on a remarkable sensory adventure.",
-];
-
+/** Google reviews, quoted as written by the guests (not translated). `date` is ISO, shown in the page language. */
 export const REVIEWS = [
   {
     name: "Blurry Ohm",
-    date: "November 18, 2022",
+    date: "2022-11-18",
     avatar: `${ASSETS}/reviews/avatar-blurry-ohm.png`,
     text: "The place serves a good selection of meat, cooked as you wish! There is a service were you can cook your meat as you like, directly on the table, ????amazing right? I truly recommend this place! Nice staff and good prices!",
   },
   {
     name: "Eibhlin Lehane",
-    date: "August 18, 2023",
+    date: "2023-08-18",
     avatar: `${ASSETS}/reviews/avatar-eibhlin-lehane.png`,
     text: "Best meal of our holiday , kids absolutely loved cooking their own steaks.  Service from Yin and Ivan was  great",
   },
   {
     name: "Steve Jain",
-    date: "June 18, 2023",
+    date: "2023-06-18",
     avatar: `${ASSETS}/reviews/avatar-steve-jain.png`,
     text: "Wonderful experience, views of the mountains.  Entrecoute and sirloin were exceptional.  Kid-friendliness: Big space, well behaved kids are no problem",
   },

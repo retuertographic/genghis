@@ -1,11 +1,13 @@
 "use client";
 
+import { useI18n } from "./i18n/context";
 import { useState, type ReactNode } from "react";
 import { CircleArrowRight, Minus } from "lucide-react";
 
 /** "Read More" / "Collapse" show-hide toggle (Element Pack toggle widget). */
 export function ReadMore({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const { t } = useI18n();
   return (
     <div>
       <div
@@ -20,7 +22,7 @@ export function ReadMore({ children }: { children: ReactNode }) {
         onClick={() => setOpen((o) => !o)}
         className="mx-auto mt-[30px] flex items-center gap-[15px] font-cinzel text-[16px] font-semibold leading-[26px] text-[#cfa670] transition-colors hover:text-black"
       >
-        {open ? "Collapse" : "Read More"}
+        {open ? t.collapse : t.readMore}
         {open ? <Minus className="size-4" strokeWidth={3} /> : <CircleArrowRight className="size-[17px] fill-current text-[#cfa670] [&>path]:stroke-white" />}
       </button>
     </div>
