@@ -1,5 +1,6 @@
 "use client";
 
+import { useI18n } from "./i18n/context";
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -9,6 +10,7 @@ const BookingContext = createContext<() => void>(() => {});
 
 export function BookingProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const { t } = useI18n();
   const show = useCallback(() => setOpen(true), []);
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="Book a table"
+          aria-label={t.bookingDialog}
           className="fixed inset-0 z-[1000] flex items-start justify-center overflow-y-auto bg-black/60 px-4 py-[50px] gk-modal-in"
           onClick={() => setOpen(false)}
         >
@@ -39,14 +41,14 @@ export function BookingProvider({ children }: { children: ReactNode }) {
           >
             <button
               type="button"
-              aria-label="Close"
+              aria-label={t.close}
               onClick={() => setOpen(false)}
               className="absolute -top-[38px] right-0 text-white/80 transition-colors hover:text-white"
             >
               <X className="size-7" strokeWidth={1.5} />
             </button>
             <iframe
-              title="Genghis Khan Grill reservations"
+              title={t.bookingFrameTitle}
               src={BOOKING_WIDGET_URL}
               className="block h-[700px] w-full border-0 bg-white"
             />
@@ -59,6 +61,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
 
 export function BookNowButton({ className }: { className?: string }) {
   const open = useContext(BookingContext);
+  const { t } = useI18n();
   return (
     <button
       type="button"
@@ -68,7 +71,7 @@ export function BookNowButton({ className }: { className?: string }) {
         className,
       )}
     >
-      Book Now
+      {t.bookNow}
     </button>
   );
 }

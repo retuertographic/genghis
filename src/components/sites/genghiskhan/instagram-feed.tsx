@@ -1,5 +1,6 @@
 "use client";
 
+import { useI18n } from "./i18n/context";
 import Image from "next/image";
 import { useState } from "react";
 import { Heart, MessageCircle, Play } from "lucide-react";
@@ -12,6 +13,7 @@ import { InstagramIcon } from "./brand-icons";
  */
 export function InstagramFeed() {
   const [expanded, setExpanded] = useState(false);
+  const { t } = useI18n();
 
   return (
     <div className="pb-[12px]">
@@ -63,7 +65,7 @@ export function InstagramFeed() {
             onClick={() => setExpanded(true)}
             className="hidden rounded-[4px] bg-[#cfa670] px-[14px] py-[7px] text-white transition-opacity hover:opacity-85 md:block"
           >
-            Load More
+            {t.instagram.loadMore}
           </button>
         )}
         <a
@@ -72,7 +74,7 @@ export function InstagramFeed() {
           rel="noopener noreferrer"
           className="flex items-center gap-2 rounded-[4px] bg-black px-[14px] py-[7px] text-white transition-opacity hover:opacity-85"
         >
-          <InstagramIcon className="size-[13px]" /> Follow on Instagram
+          <InstagramIcon className="size-[13px]" /> {t.instagram.follow}
         </a>
       </div>
     </div>

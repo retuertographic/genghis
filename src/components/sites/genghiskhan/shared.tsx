@@ -2,8 +2,10 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ASSETS, REVIEWS, SOCIAL } from "./data";
+import { ASSETS, FEATURE_IMAGES, REVIEWS, SOCIAL } from "./data";
+import { getDictionary, type Lang } from "./i18n";
 import { InstagramFeed } from "./instagram-feed";
+import { Reveal, type RevealAnimation } from "./reveal";
 import { Tilt } from "./tilt";
 
 export function Script({
@@ -94,7 +96,9 @@ export function Card({
   );
 }
 
-export function ReviewsSection() {
+export function ReviewsSection({ lang }: { lang: Lang }) {
+  const t = getDictionary(lang).common.reviews;
+  const date = new Intl.DateTimeFormat(lang, { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
   return (
     <BgSection
       image={`${ASSETS}/images/reviews-bg.jpg`}
@@ -109,7 +113,7 @@ export function ReviewsSection() {
             href={SOCIAL.googleReviews}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`Read ${r.name}'s review on Google`}
+            aria-label={`${t.readOnGoogle}: ${r.name}`}
             className="group block font-[Helvetica_Neue,Helvetica,Arial,sans-serif] max-md:px-[60px]"
           >
             <figure>
@@ -123,7 +127,7 @@ export function ReviewsSection() {
                 <p className="text-[14px] italic leading-[22.4px] text-[#777]">
                   <span
                     className="mr-[2px] inline-flex align-[-2px]"
-                    aria-label="5 stars"
+                    aria-label={t.stars}
                   >
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Star
@@ -149,7 +153,7 @@ export function ReviewsSection() {
                 />
                 <div className="text-[13px] uppercase leading-[20.8px] text-[#555]">
                   <div>{r.name}</div>
-                  <div>{r.date}</div>
+                  <div>{date.format(new Date(r.date))}</div>
                 </div>
               </figcaption>
             </figure>
@@ -162,7 +166,7 @@ export function ReviewsSection() {
             rel="noopener noreferrer"
             className="rounded-[4px] bg-black px-[14px] py-[7px] font-poppins text-[13px] leading-[19.5px] text-white transition-opacity hover:opacity-85"
           >
-            See all reviews on Google
+            {t.seeAll}
           </a>
         </div>
       </div>
@@ -171,12 +175,13 @@ export function ReviewsSection() {
   );
 }
 
-export function InstagramSection() {
+export function InstagramSection({ lang }: { lang: Lang }) {
+  const t = getDictionary(lang).common.instagram;
   return (
     <section className="pb-[10px]">
       <div className="gk-container">
         <Display className="text-center text-[35px] leading-[35px] text-[#cfa670] max-md:text-[40px] max-md:leading-[40px]">
-          Connect with us
+          {t.connect}
         </Display>
         <Display className="mt-[15px] text-center text-black max-md:mt-[55px]">
           <a
@@ -185,7 +190,7 @@ export function InstagramSection() {
             rel="noopener noreferrer"
             className="transition-colors hover:text-[#cfa670]"
           >
-            Instagram
+            {t.title}
           </a>
         </Display>
         <div className="mt-[30px]">
@@ -193,5 +198,116 @@ export function InstagramSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+/* ---------- Sections shared by several pages ---------- */
+
+function Corner({ className }: { className: string }) {
+  return <div aria-hidden className={cn("absolute size-6 border-[#c8a028]", className)} />;
+}
+
+function DiamondDivider({ className }: { className?: string }) {
+  return (
+    <div aria-hidden className={cn("mx-auto flex max-w-[400px] items-center gap-4", className)}>
+      <div className="h-px flex-1 bg-[rgba(200,160,40,0.2)]" />
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+        <rect x="5" y="0" width="7" height="7" transform="rotate(45 5 0)" fill="#c8a028" opacity="0.6" />
+      </svg>
+      <div className="h-px flex-1 bg-[rgba(200,160,40,0.2)]" />
+    </div>
+  );
+}
+
+/** TripAdvisor Travellers' Choice card (home page: plain spacers; awards page: diamond dividers). */
+export function AwardCard({ lang, dividers = "plain" }: { lang: Lang; dividers?: "plain" | "diamond" }) {
+  const t = getDictionary(lang).common.award;
+  const divider = (className: string) =>
+    dividers === "diamond" ? <DiamondDivider className={className} /> : <div className={cn("mx-auto max-w-[400px]", className)} />;
+  return (
+    <div className="relative overflow-hidden rounded-[4px] border border-[rgba(200,160,40,0.25)] bg-[linear-gradient(145deg,#161410_0%,#1a1710_50%,#161410_100%)] px-[48px] py-[64px] text-center shadow-[0_0_0_1px_rgba(0,0,0,0.8),0_40px_80px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(200,160,40,0.15)] max-md:px-[40px]">
+      <Corner className="left-4 top-4 border-l border-t" />
+      <Corner className="right-4 top-4 border-r border-t" />
+      <Corner className="bottom-4 left-4 border-b border-l" />
+      <Corner className="bottom-4 right-4 border-b border-r" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(200,160,40,0.04)_0%,transparent_60%)]"
+      />
+      <div className="relative">
+        <div className="mb-[36px] inline-block rounded-full border border-[rgba(200,160,40,0.4)] bg-[rgba(200,160,40,0.06)] px-5 py-[6px] font-poppins text-[10px] font-bold uppercase leading-[26px] tracking-[4px] text-[#c8a028] max-md:leading-[20px]">
+          {t.year}
+        </div>
+        <h2 className="mb-3 font-cormorant text-[clamp(26px,4vw,42px)] font-normal leading-[1.2] tracking-[0.5px] text-[#f5f0e8]">
+          {t.title}
+        </h2>
+        <p className="font-montserrat text-[12px] uppercase leading-[26px] tracking-[2px] text-[rgba(200,160,40,0.7)] max-md:leading-[20px]">
+          {t.subtitle}
+        </p>
+        {divider("my-[48px]")}
+        <a
+          href={SOCIAL.tripadvisor}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block transition-[transform,filter] duration-300 hover:scale-[1.04] hover:brightness-110"
+        >
+          <Image
+            src={`${ASSETS}/images/tripadvisor-tc-2025.png`}
+            alt={t.badgeAlt}
+            width={200}
+            height={262}
+            className="block h-auto w-[200px] max-w-full drop-shadow-[0_12px_32px_rgba(0,0,0,0.7)]"
+          />
+        </a>
+        {divider("mb-[44px] mt-[48px]")}
+        <p className="mx-auto max-w-[560px] font-cormorant text-[clamp(17px,2.2vw,21px)] font-light italic leading-[1.75] tracking-[0.2px] text-[rgba(245,240,232,0.75)]">
+          {t.text}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/** Three rounded photos with a caption each (home and awards). */
+export function FeatureCards({ lang, animation = "fadeInUp" }: { lang: Lang; animation?: RevealAnimation }) {
+  const texts = getDictionary(lang).common.features;
+  return (
+    <section className="py-[30px]">
+      <div className="gk-container grid grid-cols-1 gap-x-[24px] gap-y-[30px] md:grid-cols-3">
+        {FEATURE_IMAGES.map((image, i) => (
+          <Reveal key={image} animation={animation} delay={i * 150} className="text-center">
+            <Image
+              src={image}
+              alt=""
+              width={683}
+              height={1024}
+              sizes="(min-width: 768px) 356px, 100vw"
+              className="h-auto w-full rounded-[29px]"
+            />
+            <p className="mt-[15px] font-poppins text-[20px] font-medium leading-[26px] text-[#777] max-md:leading-[20px]">
+              {texts[i]}
+            </p>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/** Dark "world-class gourmet experience" banner (home and awards). */
+export function GourmetBanner({ lang }: { lang: Lang }) {
+  const t = getDictionary(lang).common.gourmet;
+  return (
+    <BgSection image={`${ASSETS}/images/gourmet-bg.jpg`} overlay="bg-black/[0.84]" className="flex min-h-[65vh] items-center">
+      <Tilt position="top" />
+      <div className="gk-container relative z-[2] w-full py-[100px] text-center max-md:px-[48px]">
+        <Reveal>
+          <h2 className="font-cinzel text-[43px] font-bold leading-[1.2] tracking-[-2.15px] text-white max-md:text-[26px] max-md:tracking-[-1.3px]">
+            {t.before} <span className="text-[#cfa670]">{t.highlight}</span> {t.after}
+          </h2>
+        </Reveal>
+      </div>
+      <Tilt position="bottom" />
+    </BgSection>
   );
 }

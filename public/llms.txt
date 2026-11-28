@@ -8,13 +8,13 @@
 - WhatsApp: +34 694 462 568
 - Email: bookings@genghiskhangrilltenerife.com
 - Bookings: online through the reservation widget on the Bookings page, by phone or by email. Larger groups and events: contact bookings@genghiskhangrilltenerife.com.
-- Menu languages: English, Spanish, German, French, Italian, Dutch. Prices exclude IGIC (Canary Islands tax).
+- Languages: the whole site is available in English (root), Spanish (/es/), German (/de/), French (/fr/), Italian (/it/) and Dutch (/nl/). Prices exclude IGIC (Canary Islands tax).
 - Allergens: allergen information for every dish is available on request (EU Regulation 1169/2011).
 
 ## Pages
 
 - [Home](https://genghiskhangrilltenerife.com/): Overview of the restaurant, the tabletop grill experience, award, guest reviews and Instagram.
-- [Menu](https://genghiskhangrilltenerife.com/menu/): Full menu with prices in six languages. Categories: Soups, Cold Starters, Hot Starters, Salads, Fire & Flavour, Chicken, Skewers, Lamb, Pork, T-Bone, Beef, Seafood Specialties, Side Dishes, Exquisite Sauces, Kids' Menu.
+- [Menu](https://genghiskhangrilltenerife.com/menu/): Full menu with prices (also at /es/menu/, /de/menu/, /fr/menu/, /it/menu/, /nl/menu/). Categories: Soups, Cold Starters, Hot Starters, Salads, Fire & Flavour, Chicken, Skewers, Lamb, Pork, T-Bone, Beef, Seafood Specialties, Side Dishes, Exquisite Sauces, Kids' Menu.
 - [Bookings](https://genghiskhangrilltenerife.com/bookings/): Reserve a table online.
 - [Lamb Shoulder](https://genghiskhangrilltenerife.com/lamb-shoulder/): The signature Charcoal Grilled Lamb Shoulder, from New Zealand lamb, marinated in a house blend of herbs and spices.
 - [About](https://genghiskhangrilltenerife.com/about/): The story of cooking with fire and charcoal that inspires the restaurant.

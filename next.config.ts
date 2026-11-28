@@ -13,10 +13,12 @@ const nextConfig: NextConfig = isPages
       trailingSlash: true,
       basePath,
       images: { unoptimized: true },
+      experimental: { globalNotFound: true },
     }
   : {
       output: "standalone",
       trailingSlash: true,
+      experimental: { globalNotFound: true },
     };
 
 export default nextConfig;

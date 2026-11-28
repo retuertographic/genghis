@@ -3,6 +3,8 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ASSETS, type GalleryImage } from "./data";
 import { Galleries } from "./gallery";
+import { getDictionary, localizedPath, type Lang } from "./i18n";
+import { Rich } from "./i18n/rich";
 import { BookingWidgetSection, LeavesBand, LocationInfo, PageBanner } from "./page-sections";
 import { Reveal } from "./reveal";
 import { Card, Display, InstagramSection, Script } from "./shared";
@@ -47,18 +49,19 @@ function StorySection({
 
 /* ---------- /bookings/ ---------- */
 
-export function BookingsPage() {
+export function BookingsPage({ lang }: { lang: Lang }) {
+  const t = getDictionary(lang).bookings;
   return (
     <>
       <PageBanner
         image={`${ASSETS}/images/banner-bookings.jpg`}
-        script="Take part of the experience"
-        lines={["Place your", "Booking"]}
+        script={t.script}
+        lines={[t.line1, t.line2]}
         nextColor="#9dc9dc"
       />
       <BookingWidgetSection />
       <LeavesBand topColor="#9dc9dc" />
-      <InstagramSection />
+      <InstagramSection lang={lang} />
     </>
   );
 }
@@ -67,42 +70,26 @@ export function BookingsPage() {
 
 /** Each box opens the matching category of the /menu/ carta. */
 const MENU_LINKS = [
-  { label: "Hot appetisers", col: 0, category: "calientes" },
-  { label: "Skewers", col: 0, category: "brochetas" },
-  { label: "Fire & Flavour", col: 1, category: "fuego-sabor" },
-  { label: "Seafood specialties", col: 1, category: "mar" },
-];
+  { key: "hotStarters", col: 0, category: "calientes" },
+  { key: "skewers", col: 0, category: "brochetas" },
+  { key: "fireFlavour", col: 1, category: "fuego-sabor" },
+  { key: "seafood", col: 1, category: "mar" },
+] as const;
 
-export function LambShoulderPage() {
+export function LambShoulderPage({ lang }: { lang: Lang }) {
+  const t = getDictionary(lang).lambShoulder;
   return (
     <>
-      <PageBanner
-        image={`${ASSETS}/images/banner-lamb-shoulder.jpg`}
-        script="We present: Our menu star"
-        lines={["Charcoal grilled", "Lamb shoulder"]}
-      />
+      <PageBanner image={`${ASSETS}/images/banner-lamb-shoulder.jpg`} script={t.script} lines={[t.line1, t.line2]} />
       <StorySection
-        title={["in the heart", "of our kitchen", "a spectacle"]}
+        title={[t.title.line1, t.title.script, t.title.line2]}
         galleries={[
           { columns: 1, images: [img("lamb-shoulder-dish.jpg", 1334, 1772)] },
           { columns: 2, images: [img("Untitled-2-4.jpg", 768, 512), img("Untitled-2-5.jpg", 768, 512)] },
         ]}
       >
         <p>
-          Unfolds as we proudly present the masterpiece of our menu: the <strong>Charcoal Grilled Lamb Shoulder</strong>,
-          prepared in the authentic Mongolian style. This exceptional dish begins its journey in the verdant landscapes of{" "}
-          <strong>New Zealand</strong>, where the finest lamb shoulders are handpicked and sent to our exclusive Spanish
-          establishment. Before the lamb shoulder meets the scorching heat of charcoal, it is bathed in an exclusive mixture
-          of herbs and spices – a closely guarded secret honed over years. This marinade seeps into the very essence of the
-          lamb, casting a spell of irresistible flavors that dance on your tastebuds. The performance doesn’t end there.
-          Each succulent piece, tender and adorned with a smoky crust, is treated to our unique in-house ageing techniques.
-          Borrowing from traditional Mongolian practices, these techniques serve to enhance and intensify the lamb
-          shoulder’s flavors with each passing moment. Thus, in a world teeming with lamb shoulder dishes, our{" "}
-          <strong>Charcoal Grilled Lamb Shoulder</strong> steals the limelight. It’s more than just a dish; it’s an
-          unforgettable culinary voyage that can only be embarked in <strong>Spain</strong> within the walls of our
-          restaurant. We eagerly await to guide you on this gastronomic odyssey. So it is, the{" "}
-          <strong>Charcoal Grilled Lamb Shoulder</strong> takes center stage in our menu, promising not just a meal, but an
-          unforgettable gastronomic adventure that we are thrilled to share with you.
+          <Rich text={t.story} lang={lang} />
         </p>
       </StorySection>
 
@@ -111,12 +98,12 @@ export function LambShoulderPage() {
           {[0, 1].map((col) => (
             <div key={col} className={col === 1 ? "space-y-[20px] md:-mt-[40px]" : "space-y-[20px]"}>
               {MENU_LINKS.filter((l) => l.col === col).map((l) => (
-                <Reveal key={l.label}>
+                <Reveal key={l.key}>
                   <Link
-                    href={`/menu/#${l.category}`}
+                    href={localizedPath(lang, `/menu/#${l.category}`)}
                     className="block border border-black/80 px-[25px] py-[30px] font-cinzel text-[32px] font-semibold leading-[32px] tracking-[-1.6px] text-black transition-colors hover:border-[#cfa670] hover:text-[#cfa670] max-md:text-[26px]"
                   >
-                    {l.label}
+                    {t.menuLinks[l.key]}
                   </Link>
                 </Reveal>
               ))}
@@ -126,47 +113,36 @@ export function LambShoulderPage() {
       </section>
 
       <LeavesBand />
-      <LocationInfo />
-      <InstagramSection />
+      <LocationInfo lang={lang} />
+      <InstagramSection lang={lang} />
     </>
   );
 }
 
 /* ---------- /about/ ---------- */
 
-export function AboutPage() {
+export function AboutPage({ lang }: { lang: Lang }) {
+  const t = getDictionary(lang).about;
   return (
     <>
-      <PageBanner
-        image={`${ASSETS}/images/banner-about.jpg`}
-        script="Discover"
-        lines={["Flavours of", "unique moments"]}
-      />
+      <PageBanner image={`${ASSETS}/images/banner-about.jpg`} script={t.script} lines={[t.line1, t.line2]} />
       <StorySection
-        title={["Innovation", "Meets", "tradition"]}
+        title={[t.title.line1, t.title.script, t.title.line2]}
         galleries={[
           { columns: 2, images: [img("Untitled-2-2.jpg", 768, 512), img("Untitled-2-3.jpg", 768, 512)] },
           { columns: 1, images: [img("Untitled-3-3.jpg", 959, 539)] },
           { columns: 2, images: [img("Untitled-2-4.jpg", 768, 512), img("Untitled-2-5.jpg", 768, 512)] },
         ]}
       >
-        <p>
-          In this place, the story of the discovery of <strong>cooking with fire</strong> is told in an original and
-          captivating way. A prominent part of this story is how the use of charcoal in the kitchen becomes a key element to
-          enhance the <strong>flavors of the dishes.</strong>
-          <br />
-          The restaurant features tables inspired by the time of the great conqueror Genghis Khan,{" "}
-          <strong>a key feature of the culinary experience</strong> that you can enjoy while cooking a wide variety of fresh
-          meats such as beef, lamb, pork, chicken, and seafood to your preferred doneness.
-          <br />A place in Costa Adeje designed for those who seek to{" "}
-          <strong>delight not only in food but also in unique stories and moments.</strong> With its innovative approach and
-          return to origins with charcoal cooking, it is able to transport you to another era while enjoying the most{" "}
-          <strong>exquisite flavors and textures.</strong>
-        </p>
+        {t.story.map((p) => (
+          <p key={p} className="mb-[8px] last:mb-0">
+            <Rich text={p} lang={lang} />
+          </p>
+        ))}
       </StorySection>
       <LeavesBand />
-      <LocationInfo />
-      <InstagramSection />
+      <LocationInfo lang={lang} />
+      <InstagramSection lang={lang} />
     </>
   );
 }
