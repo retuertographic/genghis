@@ -9,6 +9,9 @@ import { AwardsPage } from "./pages/awards";
 import { ContactPage } from "./pages/contact";
 import { TermsPage } from "./pages/tc";
 
+/** 1200×630 sharing image, generated from the hero photo by scripts/optimize-images.mjs. */
+const OG_IMAGE = `${SITE_URL}/sites/genghiskhan/_img/og-image.jpg`;
+
 type PageKey = keyof Dictionary["meta"]["pages"];
 
 /** Every page of the site: its language-neutral path and component. Route files under src/app only point here. */
@@ -40,7 +43,16 @@ export function pageMetadata(key: PageKey, lang: Lang, path?: string): Metadata 
     description: page.description,
     icons: { icon: `${BASE_PATH}/favicon.png` },
     ...(path && { alternates: { canonical: languages[lang], languages } }),
-    openGraph: { title, description: page.description, siteName: t.siteName, locale: lang, type: "website" },
+    openGraph: {
+      title,
+      description: page.description,
+      siteName: t.siteName,
+      locale: lang,
+      type: "website",
+      ...(path && { url: languages[lang] }),
+      images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: t.siteName }],
+    },
+    twitter: { card: "summary_large_image", title, description: page.description, images: [OG_IMAGE] },
   };
 }
 

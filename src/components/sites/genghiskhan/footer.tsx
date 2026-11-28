@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ComponentType, SVGProps } from "react";
+import { optimizedSrc } from "@/image-loader";
 import { ASSETS, QUICK_LINKS, SITE_URL } from "./data";
 import { getDictionary, localizedPath, type Lang } from "./i18n";
 import {
@@ -45,7 +46,7 @@ export function Footer({ lang }: { lang: Lang }) {
         <div
           aria-hidden
           className="absolute inset-0 bg-cover bg-top-left"
-          style={{ backgroundImage: `url(${ASSETS}/images/bg-leaves.png)` }}
+          style={{ backgroundImage: `url(${optimizedSrc(`${ASSETS}/images/bg-leaves.png`, 1920)})` }}
         />
         <div aria-hidden className="absolute inset-0 bg-black/70" />
         <div className="gk-container relative grid grid-cols-1 gap-y-[34px] py-[30px] text-center md:grid-cols-4 md:text-left max-md:pb-[40px]">

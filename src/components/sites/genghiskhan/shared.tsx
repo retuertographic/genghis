@@ -52,12 +52,15 @@ export function BgSection({
   className,
   children,
   position = "50% 50%",
+  priority = false,
 }: {
   image: string;
   overlay: string;
   className?: string;
   children: ReactNode;
   position?: string;
+  /** Above-the-fold background (hero, page banner): preload it instead of lazy-loading. */
+  priority?: boolean;
 }) {
   return (
     <section className={cn("relative overflow-hidden", className)}>
@@ -66,6 +69,7 @@ export function BgSection({
         alt=""
         fill
         sizes="100vw"
+        priority={priority}
         className="object-cover"
         style={{ objectPosition: position }}
       />

@@ -23,7 +23,7 @@ export function PageBanner({
   overlay?: string;
 }) {
   return (
-    <BgSection image={image} overlay={overlay} className="flex min-h-[40vh] items-center" position="50% 50%">
+    <BgSection image={image} overlay={overlay} className="flex min-h-[40vh] items-center" position="50% 50%" priority>
       <div className="gk-container relative z-[2] w-full pb-[40px] pt-[20px] text-center text-white max-md:px-[48px] max-md:py-[50px]">
         <Reveal animation="fadeIn">
           <Script>{script}</Script>

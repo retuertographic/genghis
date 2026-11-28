@@ -27,7 +27,10 @@
     "node": ">=24"
   },
   "scripts": {
+    "images": "node scripts/optimize-images.mjs",
+    "predev": "npm run images",
     "dev": "next dev",
+    "prebuild": "npm run images",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -53,6 +56,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.5",
+    "sharp": "^0.34.4",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

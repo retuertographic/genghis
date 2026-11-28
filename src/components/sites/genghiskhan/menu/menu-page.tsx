@@ -3,6 +3,7 @@ import type { Lang } from "../i18n";
 import { BookingWidgetSection } from "../page-sections";
 import { BgSection } from "../shared";
 import { CartaWidget } from "./carta-widget";
+import { menuStrings } from "./menu-strings";
 
 /** /menu/: the interactive carta over the restaurant photo, then the dish.co booking widget. */
 export function GenghisKhanMenu({ lang }: { lang: Lang }) {
@@ -11,11 +12,12 @@ export function GenghisKhanMenu({ lang }: { lang: Lang }) {
       <BgSection
         image={`${ASSETS}/images/banner-bookings.jpg`}
         overlay="bg-black/45"
+        priority
         // overflow-clip (not hidden) so the sticky category bar inside still sticks to the viewport.
         className="flex min-h-[40vh] items-center overflow-clip bg-black"
       >
         <div className="relative z-[2] w-full">
-          <CartaWidget lang={lang} />
+          <CartaWidget lang={lang} t={menuStrings(lang)} />
         </div>
         {/* Same tilt as the shared divider, but this section keeps 70px on phones too. */}
         <svg
