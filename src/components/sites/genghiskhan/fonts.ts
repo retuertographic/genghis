@@ -30,12 +30,16 @@ export const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400"],
   style: ["normal", "italic"],
+  // Only used below the fold: not preloaded, so it does not compete with the hero.
+  preload: false,
 });
 
 export const montserrat = Montserrat({
   variable: "--nf-montserrat",
   subsets: ["latin"],
   weight: ["400"],
+  // Only used below the fold: not preloaded, so it does not compete with the hero.
+  preload: false,
 });
 
 

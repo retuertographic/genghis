@@ -42,7 +42,7 @@ export function Galleries({ groups, className }: { groups: Group[]; className?: 
                   alt=""
                   width={img.width}
                   height={img.height}
-                  sizes="(min-width: 1024px) 760px, 100vw"
+                  sizes={group.columns === 2 ? "(min-width: 1024px) 370px, (min-width: 640px) 50vw, 100vw" : "(min-width: 1024px) 760px, 100vw"}
                   className="block h-auto w-full"
                 />
                 <span className="absolute inset-0 bg-black/0 transition-colors duration-[800ms] group-hover:bg-black/40" />

@@ -25,4 +25,5 @@ export const playfair = Playfair_Display({
   subsets: ["latin"],
   weight: ["700"],
   style: ["italic"],
+  preload: false,
 });

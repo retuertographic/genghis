@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Clock, Info, Menu, Phone, Send, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { optimizedSrc } from "@/image-loader";
 import { ASSETS, NAV_LINKS, SOCIAL } from "./data";
 import { FacebookIcon, InstagramIcon, MapMarkedIcon } from "./brand-icons";
 import { LANG_NAMES, LANGS, localizedPath, splitLangPath } from "./i18n/config";
@@ -104,7 +105,7 @@ export function Header() {
         <div
           aria-hidden
           className="absolute inset-0 bg-contain bg-top-left"
-          style={{ backgroundImage: `url(${ASSETS}/images/bg-leaves.png)` }}
+          style={{ backgroundImage: `url(${optimizedSrc(`${ASSETS}/images/bg-leaves.png`, 384)})` }}
         />
         <div aria-hidden className="absolute inset-0 bg-black/[0.69]" />
         <div className="gk-container relative flex h-[96px] items-center max-[991px]:h-[117px]">

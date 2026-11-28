@@ -72,3 +72,10 @@ The site answers `403` to headless browsers, so the page HTML and its assets wer
 - Shared once, used everywhere: header, footer, booking modal (`site-shell.tsx`); banner, leaves band, booking widget, location block (`page-sections.tsx`); award card, feature photos, gourmet banner, reviews, Instagram (`shared.tsx`); image viewer (`lightbox.tsx`).
 - `global-not-found.tsx`: a single 404 for every language; it reads the language from the URL in the browser.
 - Menu photos: the same Magnific/Freepik stock photos the old site used, in `public/sites/genghiskhan/menu/<category>-{400,1200}.webp` (credits in `CREDITS.md` there).
+
+## Performance and SEO
+
+- Images: `scripts/optimize-images.mjs` (runs before `next dev`/`next build`) writes WebP copies of every image under `public/sites/genghiskhan/` in 64–1920 px widths to `public/sites/genghiskhan/_img/` (generated, not committed), plus the 1200×630 sharing image. `src/image-loader.ts` is the next/image loader that picks the right width, so every `<Image>` gets a WebP `srcset`. CSS backgrounds use `optimizedSrc()`.
+- The hero and page banners are preloaded (`priority`); fonts used only below the fold are not preloaded.
+- The menu sends only the current language to the browser (`menu/menu-strings.ts` stays on the server) and loads a category's large photo only when it is opened.
+- `sitemap.xml` (all pages × 6 languages with hreflang) and `robots.txt` are generated (`src/app/sitemap.ts`, `src/app/robots.ts`). Home pages carry schema.org `Restaurant` JSON-LD; every page has Open Graph/Twitter tags with the sharing image.

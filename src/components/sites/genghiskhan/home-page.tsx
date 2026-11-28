@@ -8,6 +8,7 @@ import { BookNowButton } from "./booking-modal";
 import { Galleries } from "./gallery";
 import { ReadMore } from "./read-more";
 import { Reveal } from "./reveal";
+import { RestaurantJsonLd } from "./structured-data";
 import { Tilt } from "./tilt";
 import {
   AwardCard,
@@ -28,6 +29,7 @@ function Hero({ t }: { t: T }) {
     <BgSection
       image={`${ASSETS}/images/hero.jpg`}
       position="50% 0%"
+      priority
       overlay="bg-black/[0.39]"
       className="flex items-center md:min-h-[900px] md:h-[calc(100vh)]"
     >
@@ -184,6 +186,7 @@ export function GenghisKhanHome({ lang }: { lang: Lang }) {
   const t = getDictionary(lang).home;
   return (
     <>
+      <RestaurantJsonLd lang={lang} />
       <Hero t={t} />
       <Awards t={t} lang={lang} />
       <Innovation t={t} lang={lang} />

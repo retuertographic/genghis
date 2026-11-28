@@ -9,34 +9,17 @@ import styles from "./carta.module.css";
 import {
   CATEGORY_IDS,
   MENU_CATEGORIES,
-  MENU_I18N,
   type CategoryId,
   type MenuCategory,
   type MenuLang,
   type MenuStrings,
 } from "./menu-data";
 
-const ES = MENU_I18N.es;
-
-/** Source behaviour: a missing translation falls back to the Spanish text. */
-function strings(lang: MenuLang): MenuStrings {
-  const s = MENU_I18N[lang];
-  return {
-    ...s,
-    cats: { ...ES.cats, ...s.cats },
-    subs: { ...ES.subs, ...s.subs },
-    notes: { ...ES.notes, ...s.notes },
-    alts: { ...ES.alts, ...s.alts },
-    dishes: { ...ES.dishes, ...s.dishes },
-    descs: { ...ES.descs, ...s.descs },
-  };
-}
-
 /** Category photo (Magnific stock bank, see public/sites/genghiskhan/menu/CREDITS.md). */
-function Photo({ id, size, alt, className, sizes }: { id: CategoryId; size: 400 | 1200; alt: string; className: string; sizes: string }) {
+function Photo({ id, alt, className, sizes }: { id: CategoryId; alt: string; className: string; sizes: string }) {
   return (
     <span className={cn(className, styles.photo)}>
-      <Image src={`${ASSETS}/menu/${id}-${size}.webp`} alt={alt} width={size} height={Math.round((size * 2) / 3)} sizes={sizes} />
+      <Image src={`${ASSETS}/menu/${id}-1200.webp`} alt={alt} width={1200} height={800} sizes={sizes} />
     </span>
   );
 }
@@ -56,6 +39,9 @@ function AccordionItem({
 }) {
   const { id } = category;
   const bodyRef = useRef<HTMLDivElement>(null);
+  // The large photo is only loaded once the category has been opened.
+  const [seen, setSeen] = useState(open);
+  if (open && !seen) setSeen(true);
   const mounted = useRef(false);
 
   // max-height slide like the source: measure scrollHeight, animate px, then release to `none`
@@ -88,8 +74,8 @@ function AccordionItem({
     }
   }, [open, id, instantRef]);
 
-  const subtitle = ES.subs[id] ? t.subs[id] : undefined;
-  const note = ES.notes[id] ? t.notes[id] : undefined;
+  const subtitle = t.subs[id];
+  const note = t.notes[id];
 
   return (
     <article id={id} data-id={id} className={cn(styles.item, open && styles.itemOpen)}>
@@ -101,7 +87,7 @@ function AccordionItem({
         onClick={() => onToggle(id)}
       >
         <span className={styles.headerLeft}>
-          <Photo id={id} size={400} alt="" className={styles.thumb} sizes="52px" />
+          <Photo id={id} alt="" className={styles.thumb} sizes="52px" />
           <span className="block">
             <span className={cn("block", styles.categoryTitle)}>{t.cats[id]}</span>
             {subtitle && <span className={cn("block", styles.categorySubtitle)}>{subtitle}</span>}
@@ -128,7 +114,7 @@ function AccordionItem({
           <div className={styles.grid}>
             <ul className={styles.list}>
               {category.dishes.map((dish) => {
-                const desc = ES.descs[dish.num] ? t.descs[dish.num] : undefined;
+                const desc = t.descs[dish.num];
                 return (
                   <li key={dish.num} className={styles.row}>
                     <div>
@@ -148,7 +134,11 @@ function AccordionItem({
               })}
             </ul>
             <div>
-              <Photo id={id} size={1200} alt={t.alts[id] ?? t.cats[id]} className={styles.sectionImage} sizes="(min-width: 900px) 400px, 100vw" />
+              {seen ? (
+                <Photo id={id} alt={t.alts[id] ?? t.cats[id]} className={styles.sectionImage} sizes="(min-width: 900px) 480px, 100vw" />
+              ) : (
+                <span className={cn(styles.sectionImage, styles.photo, "block")} />
+              )}
               {note && <p className={styles.note}>{note}</p>}
             </div>
           </div>
@@ -159,7 +149,7 @@ function AccordionItem({
 }
 
 /** The source's custom "carta" widget: hero, category nav, accordion, allergen note. Language = the page language. */
-export function CartaWidget({ lang }: { lang: MenuLang }) {
+export function CartaWidget({ lang, t }: { lang: MenuLang; t: MenuStrings }) {
   const [openIds, setOpenIds] = useState<ReadonlySet<CategoryId>>(() => new Set());
   const [activeId, setActiveId] = useState<CategoryId | null>(null);
   const [showTop, setShowTop] = useState(false);
@@ -169,7 +159,6 @@ export function CartaWidget({ lang }: { lang: MenuLang }) {
   const navScrolling = useRef(false);
   const navScrollTimer = useRef<number | undefined>(undefined);
 
-  const t = strings(lang);
 
   const toggle = useCallback((id: CategoryId) => {
     setOpenIds((prev) => {
